@@ -1,16 +1,37 @@
-
 <ion-content padding-top>
-  <ion-list>
-    <ion-item *ngFor="let beer of userBeers | async">
-      <ion-thumbnail item-left>
-        <img src="{{ beer.logo }}">
-      </ion-thumbnail>
-      <h2>{{ beer.name }}</h2>
-      <p>{{ beer.description }}</p>
-      <button ion-button clear item-right (click)="showInfo(beer)">View</button>
-      <button ion-button clear item-right (click)="removeBeer(beer.$key)">Delete</button>
-    </ion-item>
+<div padding>
+  <ion-segment [(ngModel)]="view">
+    <ion-segment-button value="profile">
+      Profile
+    </ion-segment-button>
+    <ion-segment-button value="beers">
+      Beers
+    </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="view">
+  <ion-list *ngSwitchCase="'beers'">
+    <ion-list>
+      <ion-item *ngFor="let beer of userBeers | async">
+        <ion-thumbnail item-left>
+          <img src="{{ beer.logo }}">
+        </ion-thumbnail>
+        <h2>{{ beer.name }}</h2>
+        <p>{{ beer.description }}</p>
+        <button ion-button clear item-right (click)="showInfo(beer)">View</button>
+        <button ion-button clear item-right (click)="removeBeer(beer.$key)">Delete</button>
+      </ion-item>
+    </ion-list>
   </ion-list>
+
+  <ion-list *ngSwitchCase="'profile'">
+    <h2>Profile</h2>
+  </ion-list>
+</div>
+
+
+
 </ion-content>
 
 
