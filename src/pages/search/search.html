@@ -1,0 +1,12 @@
+
+<ion-content padding-top>
+
+  <ion-searchbar [(ngModel)]="searchInput" (search)="onSearch(searchInput)" placeholder="Search"></ion-searchbar>
+
+  <div *ngIf="beerName">
+    <h2 text-center>{{ beerName }}</h2>
+    <img [src]="beerLogo" alt="beer">
+    <button *ngIf="beerName !== 'Try Again'" ion-button block (click)="saveBeer(beer)">Save Beer!</button>
+  </div>
+
+</ion-content>

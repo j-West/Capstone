@@ -1,0 +1,24 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text>Back</span>
+      </button>
+    </ion-buttons>
+
+    <ion-title>{{ beerName }}</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <img [src]="beerLogo">
+    <ion-card-content>
+      <p>{{ beerDesc }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
