@@ -2,14 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { BeerModalPage } from '../beer-modal-page/beer-modal-page';
+import { AuthService } from '../../providers/auth-service';
 
 
-/*
-  Generated class for the Profile page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html'
@@ -17,17 +13,20 @@ import { BeerModalPage } from '../beer-modal-page/beer-modal-page';
 export class ProfilePage {
 
   userBeers: FirebaseListObservable<any>;
+  view: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, af: AngularFire, public modalCtrl: ModalController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, af: AngularFire, public modalCtrl: ModalController, public alertCtrl: AlertController) {
     this.userBeers = af.database.list('/beers');
+    this.view = 'profile';
   }
 
   showInfo(beer: any) {
     console.log(beer);
-    let modal = this.modalCtrl.create(BeerModalPage, {beerName: beer.name,
-                                                      beerLogo: beer.logo,
-                                                      beerDesc: beer.description
-                                                     });
+    let modal = this.modalCtrl
+      .create(BeerModalPage, { beerName: beer.name,
+                               beerLogo: beer.logo,
+                               beerDesc: beer.description
+                             });
     modal.present();
   }
 

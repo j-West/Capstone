@@ -12,7 +12,7 @@ import { ProfilePage } from "../profile/profile";
 export class TabsPage {
   // this tells the tabs component which Pages
   // should be each tab's root Page
-  tab1Root: any = LoginPage;
+  // tab1Root: any = LoginPage;
   tab2Root: any = HomePage;
   tab3Root: any = SearchPage;
   tab4Root: any = ProfilePage;

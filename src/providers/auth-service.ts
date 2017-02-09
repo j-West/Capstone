@@ -1,18 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { AuthProviders, AngularFireAuth, FirebaseAuthState, AuthMethods } from 'angularfire2';
+import { NavController } from 'ionic-angular';
 
-/*
-  Generated class for the AuthService provider.
+import { LoginPage } from '../pages/login/login';
+import {TabsPage} from "../pages/tabs/tabs";
+// import { Http } from '@angular/http';
+// import 'rxjs/add/operator/map';
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+
 @Injectable()
 export class AuthService {
+  private authState: FirebaseAuthState;
 
-  constructor(public http: Http) {
-    console.log('Hello AuthService Provider');
+
+  constructor(public auth$: AngularFireAuth) {
+
+    auth$.subscribe((state: FirebaseAuthState) => {
+      this.authState = state;
+    });
   }
 
+  get authenticated(): boolean {
+    return this.authState !== null;
+  }
+  signInWithTwitter(): firebase.Promise<FirebaseAuthState> {
+    return this.auth$.login({
+      provider: AuthProviders.Twitter,
+      method: AuthMethods.Popup
+    });
+  }
+
+  signOut(): void {
+    this.auth$.logout();
+
+  }
+
+  displayName(): string {
+    if (this.authState != null) {
+      return this.authState.twitter.displayName;
+    } else {
+      return ;
+    }
+  }
 }
