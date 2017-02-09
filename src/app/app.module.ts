@@ -2,12 +2,14 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AngularFireModule } from 'angularfire2';
 import { MyApp } from './app.component';
+import {AuthService} from "../providers/auth-service";
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { SearchPage } from '../pages/search/search';
 import { BeerModalPage } from '../pages/beer-modal-page/beer-modal-page';
 import { TabsPage } from '../pages/tabs/tabs';
+
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDi2Z0CePALh5Z2y5xwkP8qHqSmHM7s1PU",
