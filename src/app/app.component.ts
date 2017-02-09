@@ -2,16 +2,18 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { BeerService } from '../providers/beer-service';
+import { AuthService } from '../providers/auth-service';
 
-import { TabsPage } from '../pages/tabs/tabs';
+
+import { LoginPage } from '../pages/login/login';
 
 
 @Component({
   templateUrl: 'app.html',
-  providers: [BeerService]
+  providers: [BeerService, AuthService]
 })
 export class MyApp {
-  rootPage = TabsPage;
+  rootPage = LoginPage;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {
@@ -21,4 +23,7 @@ export class MyApp {
       Splashscreen.hide();
     });
   }
+
+
+
 }
