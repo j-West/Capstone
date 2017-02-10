@@ -30,6 +30,17 @@ export class AuthService {
     });
   }
 
+  signIn(userInfo: any): firebase.Promise<FirebaseAuthState> {
+    return this.auth$.login({ email : userInfo.email, password : userInfo.password },
+                            { provider: AuthProviders.Password,
+                              method: AuthMethods.Password
+                            });
+  }
+
+  register(userInfo: any): firebase.Promise<FirebaseAuthState> {
+    return this.auth$.createUser({ email : userInfo.email, password : userInfo.password });
+  }
+
   signOut(): void {
     this.auth$.logout();
 
