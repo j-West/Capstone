@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 import { MyApp } from './app.component';
 import {AuthService} from "../providers/auth-service";
 import { LoginPage } from '../pages/login/login';
@@ -19,6 +19,10 @@ export const firebaseConfig = {
   messagingSenderId: "439572387432"
 };
 
+// const myFirebaseAuthConfig = {
+//   provider: AuthProviders.Password,
+//   method: AuthMethods.Password
+// };
 
 
 @NgModule({

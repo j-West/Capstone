@@ -2,25 +2,34 @@
   <h1 text-center padding-vertical>Cheers</h1>
 
   <ion-icon name="logo-twitter" (click)="signInWithTwitter()"></ion-icon>
+    <form [formGroup]="userInfo">
+      <ion-item>
+        <ion-label floating>Nickname</ion-label>
+        <ion-input type="input" formControlName="nickname"></ion-input>
+      </ion-item>
 
-      <!--<ion-item>-->
-        <!--<ion-label floating>Email</ion-label>-->
-        <!--<ion-input type="email"></ion-input>-->
-      <!--</ion-item>-->
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
+      </ion-item>
 
-      <!--<ion-item>-->
-        <!--<ion-label floating>Password</ion-label>-->
-        <!--<ion-input type="password"></ion-input>-->
-      <!--</ion-item>-->
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+    </form>
 
-  <!--<ion-grid>-->
-    <!--<ion-list>-->
-      <!--<ion-row>-->
-        <!--<ion-col width-50 offset-25>-->
-          <!--<button ion-button margin-top block>Login</button>-->
-        <!--</ion-col>-->
-      <!--</ion-row>-->
-    <!--</ion-list>-->
-  <!--</ion-grid>-->
+  <ion-grid>
+    <ion-list>
+      <ion-row>
+        <ion-col width-50>
+          <button ion-button margin-top block color="secondary" (click)="signIn()">Login</button>
+        </ion-col>
+        <ion-col width-50>
+          <button ion-button margin-top block (click)="register()">Register</button>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-grid>
 </ion-content>
 
