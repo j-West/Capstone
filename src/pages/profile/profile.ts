@@ -4,6 +4,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { BeerModalPage } from '../beer-modal-page/beer-modal-page';
 import { AuthService } from '../../providers/auth-service';
 import {LoginPage} from "../login/login";
+import { App } from 'ionic-angular';
 
 
 
