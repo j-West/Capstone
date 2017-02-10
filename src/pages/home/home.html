@@ -1,4 +1,15 @@
 <ion-content>
   <h2 text-center padding-top>Beer You!</h2>
 
+  <ion-list>
+    <ion-item *ngFor="let beer of allBeers | async">
+      <ion-thumbnail item-left>
+        <img src="{{ beer.logo }}">
+      </ion-thumbnail>
+      <h2>{{ beer.name }}</h2>
+      <p>{{ beer.description }}</p>
+      <button ion-button clear item-right (click)="showInfo(beer)">View</button>
+      <button ion-button clear item-right (click)="removeBeer(beer.$key)">Delete</button>
+    </ion-item>
+  </ion-list>
 </ion-content>

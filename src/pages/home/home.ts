@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
-import { AngularFire } from 'angularfire2';
-import { LoginPage } from '../login/login';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable,  } from 'angularfire2';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'page-home',
@@ -11,7 +11,12 @@ import { LoginPage } from '../login/login';
 })
 export class HomePage {
 
+  allBeers: Observable<any>;
+
   constructor(public navCtrl: NavController, private _auth: AuthService, public af: AngularFire) {
+    this.allBeers = af.database.list('/beers', {
+      query: { orderByChild: 'when' }
+    }).map(beers => { return beers.reverse() });
 
 
 
