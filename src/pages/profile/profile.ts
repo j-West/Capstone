@@ -36,7 +36,7 @@ export class ProfilePage {
     console.log(beer);
     let modal = this.modalCtrl
       .create(BeerModalPage, { beerName: beer.name,
-                               beerLogo: beer.logo,
+                               beerLogo: beer.logoLarge,
                                beerDesc: beer.description
                              });
     modal.present();

@@ -36,7 +36,7 @@ export class SearchPage {
       console.log(res);
       if(res.data) {
         this.beerName = res.data[0].nameDisplay;
-        this.beerLogo = res.data[0].labels.medium;
+        this.beerLogo = res.data[0].labels.large;
         this.currentBeer = res.data;
       } else {
         this.beerName = 'Try Again';
@@ -51,7 +51,8 @@ export class SearchPage {
     this.searchInput = '';
     this.userBeers.push({
                           name: this.currentBeer[0].nameDisplay,
-                          logo: this.currentBeer[0].labels.large,
+                          logoLarge: this.currentBeer[0].labels.large,
+                          logoSmall: this.currentBeer[0].labels.icon,
                           description: this.currentBeer[0].description
                         });
     this.time = new Date().getTime();
@@ -59,7 +60,8 @@ export class SearchPage {
     this.allBeer.push({
                         userID: this._auth.authState.uid,
                         name: this.currentBeer[0].nameDisplay,
-                        logo: this.currentBeer[0].labels.large,
+                        logoLarge: this.currentBeer[0].labels.large,
+                        logoSmall: this.currentBeer[0].labels.icon,
                         description: this.currentBeer[0].description,
                         when: this.time
                       })
