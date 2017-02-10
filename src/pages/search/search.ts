@@ -13,13 +13,16 @@ import { AuthService } from '../../providers/auth-service';
 export class SearchPage {
 
   userBeers: FirebaseListObservable<any>;
+  allBeer: FirebaseListObservable<any>;
   beerName: string;
   beerLogo: string;
   searchInput: string;
   currentBeer: any;
+  time: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, af: AngularFire, private beerService: BeerService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
     this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
+    this.allBeer = af.database.list('/beers');
   }
 
   onSearch() {
@@ -34,18 +37,29 @@ export class SearchPage {
         this.beerLogo = res.data[0].labels.medium;
         this.currentBeer = res.data;
       } else {
-        this.beerName = 'Try Again'
+        this.beerName = 'Try Again';
         this.beerLogo = '../../assets/images/notFound.jpg'
       }
     })
   }
 
   saveBeer() {
+
     this.userBeers.push({
                           name: this.currentBeer[0].nameDisplay,
                           logo: this.currentBeer[0].labels.large,
                           description: this.currentBeer[0].description
-                        })
+                        });
+    this.time = new Date().getTime();
+    console.log(this._auth.authState)
+    this.allBeer.push({
+                        userID: this._auth.authState.uid,
+                        name: this.currentBeer[0].nameDisplay,
+                        logo: this.currentBeer[0].labels.large,
+                        description: this.currentBeer[0].description,
+                        when: this.time
+                      })
+
   }
 
 }
