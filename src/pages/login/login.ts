@@ -26,7 +26,7 @@ export class LoginPage {
 
 
     this.userInfo = this.formBuilder.group({
-      nickname: ['', Validators.required],
+      nickname: [''],
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
@@ -62,7 +62,14 @@ export class LoginPage {
           nickname: this.userInfo.value.nickname
         });
         this.onSignInSuccess()
-      });
+      })
+      .then(() => {
+      this._auth.authState.auth.updateProfile({
+        displayName: this.userInfo.value.nickname,
+        photoURL: '../../assets/images/defaultProfileImage.jpg'
+
+      })
+      })
 
   }
 

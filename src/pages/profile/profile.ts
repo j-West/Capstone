@@ -14,17 +14,20 @@ import {LoginPage} from "../login/login";
 export class ProfilePage {
 
   userBeers: FirebaseListObservable<any>;
-
+  currentUser: any;
   view: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, af: AngularFire, public modalCtrl: ModalController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private _app: App, public navParams: NavParams, private _auth: AuthService, af: AngularFire, public modalCtrl: ModalController, public alertCtrl: AlertController) {
     this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
+    this.currentUser = this._auth.authState.auth;
     this.view = 'profile';
+
+
   }
 
   signOut() {
     this._auth.signOut();
-    this.navCtrl.setRoot(LoginPage)
+    this._app.getRootNav().setRoot(LoginPage);
     console.log('Signed Out')
   }
 
