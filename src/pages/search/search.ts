@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { BeerService } from '../../providers/beer-service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from '../../providers/auth-service';
@@ -20,9 +20,11 @@ export class SearchPage {
   currentBeer: any;
   time: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
+  constructor(public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
     this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
     this.allBeer = af.database.list('/beers');
+    this.searchInput = '';
+
   }
 
   onSearch() {
@@ -44,7 +46,9 @@ export class SearchPage {
   }
 
   saveBeer() {
-
+    this.beerName = '';
+    this.beerLogo = '';
+    this.searchInput = '';
     this.userBeers.push({
                           name: this.currentBeer[0].nameDisplay,
                           logo: this.currentBeer[0].labels.large,
@@ -59,7 +63,13 @@ export class SearchPage {
                         description: this.currentBeer[0].description,
                         when: this.time
                       })
+    let toast = this.toastCtrl.create({
+      message: `${this.currentBeer[0].nameDisplay} was successfully added!`,
+      duration: 1500,
+      position: 'bottom'
 
+    });
+    toast.present();
   }
 
 }

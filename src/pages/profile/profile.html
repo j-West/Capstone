@@ -6,8 +6,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding-top>
-<div padding>
+<ion-content>
+<div>
   <ion-segment [(ngModel)]="view">
     <ion-segment-button value="profile">
       Profile
@@ -35,7 +35,6 @@
   </ion-list>
 
   <ion-list *ngSwitchCase="'profile'">
-    <h2>Profile</h2>
     <h4>{{ currentUser.displayName }}</h4>
     <img [src]="currentUser.photoURL" alt="">
   </ion-list>
