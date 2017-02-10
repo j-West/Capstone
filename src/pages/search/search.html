@@ -1,7 +1,10 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-searchbar [(ngModel)]="searchInput" (search)="onSearch(searchInput)" placeholder="Search"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content padding-top>
-
-  <ion-searchbar [(ngModel)]="searchInput" (search)="onSearch(searchInput)" placeholder="Search"></ion-searchbar>
 
   <div *ngIf="beerName">
     <h2 text-center>{{ beerName }}</h2>

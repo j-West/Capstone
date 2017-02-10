@@ -8,6 +8,9 @@
       Beers
     </ion-segment-button>
   </ion-segment>
+  <ion-buttons end>
+    <button ion-button (click)="signOut()">Logout</button>
+  </ion-buttons>
 </div>
 
 <div [ngSwitch]="view">

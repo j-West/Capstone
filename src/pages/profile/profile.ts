@@ -3,6 +3,7 @@ import { NavController, NavParams, ModalController, AlertController } from 'ioni
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { BeerModalPage } from '../beer-modal-page/beer-modal-page';
 import { AuthService } from '../../providers/auth-service';
+import {LoginPage} from "../login/login";
 
 
 
@@ -13,11 +14,18 @@ import { AuthService } from '../../providers/auth-service';
 export class ProfilePage {
 
   userBeers: FirebaseListObservable<any>;
+
   view: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, af: AngularFire, public modalCtrl: ModalController, public alertCtrl: AlertController) {
-    this.userBeers = af.database.list('/beers');
+    this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
     this.view = 'profile';
+  }
+
+  signOut() {
+    this._auth.signOut();
+    this.navCtrl.setRoot(LoginPage)
+    console.log('Signed Out')
   }
 
   showInfo(beer: any) {

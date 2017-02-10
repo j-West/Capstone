@@ -10,7 +10,7 @@ import {TabsPage} from "../pages/tabs/tabs";
 
 @Injectable()
 export class AuthService {
-  private authState: FirebaseAuthState;
+  public authState: FirebaseAuthState;
 
 
   constructor(public auth$: AngularFireAuth) {
@@ -20,7 +20,7 @@ export class AuthService {
     });
   }
 
-  get authenticated(): boolean {
+  getAuthenticated(): boolean {
     return this.authState !== null;
   }
   signInWithTwitter(): firebase.Promise<FirebaseAuthState> {

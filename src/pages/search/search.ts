@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { BeerService } from '../../providers/beer-service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AuthService } from '../../providers/auth-service';
 
 
 @Component({
@@ -16,8 +17,8 @@ export class SearchPage {
   searchInput: string;
   currentBeer: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, af: AngularFire, private beerService: BeerService) {
-    this.userBeers = af.database.list('/beers');
+  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, af: AngularFire, private beerService: BeerService) {
+    this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
   }
 
   onSearch() {
