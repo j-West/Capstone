@@ -19,7 +19,7 @@ export class SearchPage {
   beerLogo: string;
   searchInput: string;
   currentBeer: any;
-  time: number;
+  time: string;
 
   constructor(public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
     this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
@@ -56,10 +56,12 @@ export class SearchPage {
                           logoSmall: this.currentBeer[0].labels.icon,
                           description: this.currentBeer[0].description
                         });
-    this.time = new Date().getTime();
+    let date = new Date();
+    this.time = date.toString();
     console.log(this._auth.authState)
     this.allBeer.push({
-                        userID: this._auth.authState.uid,
+                        user: this._auth.authState.auth.displayName,
+                        userImg: this._auth.authState.auth.photoURL,
                         name: this.currentBeer[0].nameDisplay,
                         logoLarge: this.currentBeer[0].labels.large,
                         logoSmall: this.currentBeer[0].labels.icon,
@@ -73,6 +75,7 @@ export class SearchPage {
 
     });
     toast.present();
+
   }
 
 }
