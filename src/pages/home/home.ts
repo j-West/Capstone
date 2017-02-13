@@ -12,13 +12,13 @@ import { Observable } from 'rxjs';
 export class HomePage {
 
   allBeers: Observable<any>;
+  currentUser: any;
 
   constructor(public navCtrl: NavController, private _auth: AuthService, public af: AngularFire) {
-    this.allBeers = af.database.list('/beers', {
-      query: { orderByChild: 'when' }
-    }).map(beers => { return beers.reverse() });
+    this.allBeers = af.database.list('/beers').map(beers => { return beers.reverse() });
 
 
+    this.currentUser = this._auth.authState.auth;
 
     this.af.auth.subscribe(auth => console.log(auth));
   }
@@ -28,3 +28,8 @@ export class HomePage {
 
 }
 
+
+
+// this.allBeers = af.database.list('/beers', {
+//   query: { orderByChild: 'when' }
+// }).map(beers => { return beers.reverse() });
