@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {Validators, FormBuilder } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../providers/auth-service';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable, FirebaseApp } from 'angularfire2';
 import { TabsPage } from '../tabs/tabs';
-import { ProfilePage } from '../profile/profile';
+
+
 
 
 @Component({
@@ -20,9 +21,14 @@ export class LoginPage {
   email: string;
   password: string;
   userInfo: any;
+  defaultProfileImg: string;
+  defaultImg: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private formBuilder: FormBuilder) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, @Inject(FirebaseApp)  firebaseApp: any, private _auth: AuthService, public af: AngularFire, private formBuilder: FormBuilder) {
     this.users = af.database.list('/users');
+    this.defaultImg = firebaseApp.storage().ref().child('images/defaultProfileImage.jpg');
+
 
 
     this.userInfo = this.formBuilder.group({
@@ -55,6 +61,8 @@ export class LoginPage {
   }
 
   register(): void {
+    this.defaultImg.getDownloadURL().then(url => this.defaultProfileImg = url);
+
     this._auth.register(this.userInfo.value)
       .then((data) => {
         this.currentUser = this.af.database.object(`/users/${data.uid}`);
@@ -66,7 +74,7 @@ export class LoginPage {
       .then(() => {
       this._auth.authState.auth.updateProfile({
         displayName: this.userInfo.value.nickname,
-        photoURL: '../../assets/images/defaultProfileImage.jpg'
+        photoURL: this.defaultProfileImg
 
       })
       })

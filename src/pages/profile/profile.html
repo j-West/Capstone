@@ -20,6 +20,7 @@
 </div>
 
 <div [ngSwitch]="view">
+
   <ion-list *ngSwitchCase="'beers'">
     <ion-list>
       <ion-item *ngFor="let beer of userBeers | async">
@@ -36,7 +37,7 @@
 
   <ion-list *ngSwitchCase="'profile'">
     <h4>{{ currentUser.displayName }}</h4>
-    <img [src]="currentUser.photoURL" alt="">
+    <img src="{{currentUser.photoURL}}" alt="">
   </ion-list>
 </div>
 

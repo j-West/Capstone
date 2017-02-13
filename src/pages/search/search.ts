@@ -6,6 +6,7 @@ import { AuthService } from '../../providers/auth-service';
 
 
 
+
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html'
