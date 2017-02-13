@@ -3,17 +3,17 @@
 
   <ion-icon name="logo-twitter" (click)="signInWithTwitter()"></ion-icon>
     <form [formGroup]="userInfo">
-      <ion-item>
+      <ion-item class="login-inputs">
         <ion-label floating>Nickname</ion-label>
         <ion-input type="input" formControlName="nickname"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item class="login-inputs">
         <ion-label floating>Email</ion-label>
         <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item class="login-inputs">
         <ion-label floating>Password</ion-label>
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
@@ -32,4 +32,5 @@
     </ion-list>
   </ion-grid>
 </ion-content>
+
 

@@ -1,10 +1,12 @@
 page-login {
   .login-page {
-    background-image: url("../../assets/images/background.jpg");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/beeryou-60d4c.appspot.com/o/images%2Fbackground.jpg?alt=media&token=f64cea03-9dc3-448d-8ce5-e514e199563c");
     background-size: cover;
     overflow: visible;
+  }
 
-    $text-input-ios-background-color: transparent;
+  .login-inputs {
+    opacity: 0.5;
   }
 }
 
