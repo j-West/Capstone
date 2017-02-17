@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import {NavController, NavParams, ToastController, LoadingController} from 'ionic-angular';
 import { BeerService } from '../../providers/beer-service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from '../../providers/auth-service';
@@ -20,8 +20,9 @@ export class SearchPage {
   searchInput: string;
   currentBeer: any;
   time: string;
+  loader: any;
 
-  constructor(public navCtrl: NavController, private toastCtrl: ToastController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
     this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
     this.allBeer = af.database.list('/beers');
     this.searchInput = '';
@@ -30,16 +31,24 @@ export class SearchPage {
 
   onSearch() {
     this.getBeer(this.searchInput);
+    this.loader = this.loadingCtrl.create({
+      content: 'Please Wait...',
+      duration: 5000
+    })
+    this.loader.present();
+
   }
 
   getBeer(beer) {
     this.beerService.getBeer(beer).subscribe(res => {
       console.log(res);
       if(res.data) {
+        this.loader.dismiss();
         this.beerName = res.data[0].nameDisplay;
         this.beerLogo = res.data[0].labels.large;
         this.currentBeer = res.data;
       } else {
+        this.loader.dismiss();
         this.beerName = 'Try Again';
         this.beerLogo = '../../assets/images/notFound.jpg'
       }
@@ -56,18 +65,6 @@ export class SearchPage {
                           logoSmall: this.currentBeer[0].labels.icon,
                           description: this.currentBeer[0].description
                         });
-    let date = new Date();
-    this.time = date.toString();
-    console.log(this._auth.authState)
-    this.allBeer.push({
-                        user: this._auth.authState.auth.displayName,
-                        userImg: this._auth.authState.auth.photoURL,
-                        name: this.currentBeer[0].nameDisplay,
-                        logoLarge: this.currentBeer[0].labels.large,
-                        logoSmall: this.currentBeer[0].labels.icon,
-                        description: this.currentBeer[0].description,
-                        when: this.time
-                      })
     let toast = this.toastCtrl.create({
       message: `${this.currentBeer[0].nameDisplay} was successfully added!`,
       duration: 1500,
