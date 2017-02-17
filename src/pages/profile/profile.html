@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar>
+    <ion-buttons start>
+      <button ion-button small (click)="editProfile()">Edit Profile</button>
+    </ion-buttons>
     <ion-buttons end>
       <button ion-button  small (click)="signOut()">Logout</button>
     </ion-buttons>
@@ -36,12 +39,15 @@
   </ion-list>
 
   <ion-list *ngSwitchCase="'profile'">
-    <h4>{{ currentUser.displayName }}</h4>
-    <img src="{{currentUser.photoURL}}" alt="">
+    <ion-item>
+      <ion-thumbnail item-left>
+        <img [src]="currentUser.photoURL">
+      </ion-thumbnail>
+      <h2>{{currentUser.displayName}}</h2>
+      <p>{{ (userBeers | async)?.length }} Beers Saved</p>
+    </ion-item>
   </ion-list>
 </div>
-
-
 
 </ion-content>
 
@@ -56,3 +62,5 @@
 
   <!--</ion-item>-->
 <!--</ion-list>-->
+
+<!--<img src="{{base64Image}}" alt="Profile Image">-->
