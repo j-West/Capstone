@@ -1,13 +1,14 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
 import { MyApp } from './app.component';
-import {AuthService} from "../providers/auth-service";
+// import {AuthService} from "../providers/auth-service";
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { ProfilePage } from '../pages/profile/profile';
 import { SearchPage } from '../pages/search/search';
 import { BeerModalPage } from '../pages/beer-modal-page/beer-modal-page';
+import { CommentsViewPage } from '../pages/comments-view/comments-view';
 import { TabsPage } from '../pages/tabs/tabs';
 
 
@@ -33,6 +34,7 @@ export const firebaseConfig = {
     ProfilePage,
     SearchPage,
     BeerModalPage,
+    CommentsViewPage,
     TabsPage
   ],
   imports: [
@@ -47,6 +49,7 @@ export const firebaseConfig = {
     ProfilePage,
     SearchPage,
     BeerModalPage,
+    CommentsViewPage,
     TabsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
