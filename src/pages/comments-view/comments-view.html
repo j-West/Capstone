@@ -1,0 +1,46 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text>Back</span>
+      </button>
+    </ion-buttons>
+
+    <ion-title>{{ beer }}</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-card>
+    <ion-item>
+      <ion-avatar item-left>
+        <img [src]="post.userImg">
+      </ion-avatar>
+      <h2>{{ post.user }}</h2>
+      <p>{{ post.when }}</p>
+    </ion-item>
+
+    <img [src]="post.URL">
+
+    <ion-card-content>
+      <p>{{ post.description }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let comment of comments | async">
+      <ion-avatar item-left>
+        <img [src]="comment.userImg">
+      </ion-avatar>
+      <h2>{{comment.user}}</h2>
+      <p>{{comment.comment}}</p>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
