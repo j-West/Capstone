@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons start>
-      <button ion-button small (click)="editProfile()">Edit Profile</button>
+      <button ion-button small (click)="editProfile()">Edit Profile Image</button>
     </ion-buttons>
     <ion-buttons end>
       <button ion-button  small (click)="signOut()">Logout</button>
@@ -15,8 +15,8 @@
     <ion-segment-button value="profile">
       Profile
     </ion-segment-button>
-    <ion-segment-button value="beers">
-      Beers
+    <ion-segment-button value="users">
+      Users
     </ion-segment-button>
   </ion-segment>
 
@@ -24,17 +24,27 @@
 
 <div [ngSwitch]="view">
 
-  <ion-list *ngSwitchCase="'beers'">
+  <ion-list *ngSwitchCase="'users'">
     <ion-list>
-      <ion-item *ngFor="let beer of userBeers | async">
-        <ion-avatar item-left>
-          <img [src]="beer.logoSmall">
-        </ion-avatar>
-        <h2>{{ beer.name }}</h2>
-        <p>{{ beer.description }}</p>
-        <button ion-button clear item-right (click)="showInfo(beer)">View</button>
-        <button ion-button clear item-right (click)="removeBeer(beer.$key)">Delete</button>
-      </ion-item>
+      <div *ngFor="let user of firebaseRef | async">
+        <ion-item *ngIf="user.$key !== currentUser.uid">
+          <ion-thumbnail item-left>
+            <img [src]="user.photoURL">
+          </ion-thumbnail>
+          <h2>{{user.nickname}}</h2>
+          <button ion-button clear item-right (click)="showUserBeer(user)">User Beers</button>r
+        </ion-item>
+      </div>
+
+      <!--<ion-item *ngFor="let beer of userBeers | async">-->
+        <!--<ion-avatar item-left>-->
+          <!--<img [src]="beer.logoSmall">-->
+        <!--</ion-avatar>-->
+        <!--<h2>{{ beer.name }}</h2>-->
+        <!--<p>{{ beer.description }}</p>-->
+        <!--<button ion-button clear item-right (click)="showInfo(beer)">View</button>-->
+        <!--<button ion-button clear item-right (click)="removeBeer(beer.$key)">Delete</button>-->
+      <!--</ion-item>-->
     </ion-list>
   </ion-list>
 
@@ -46,21 +56,17 @@
       <h2>{{currentUser.displayName}}</h2>
       <p>{{ (userBeers | async)?.length }} Beers Saved</p>
     </ion-item>
+    <ion-item *ngFor="let beer of userBeers | async">
+      <ion-avatar item-left>
+        <img [src]="beer.logoSmall">
+      </ion-avatar>
+      <h2>{{ beer.name }}</h2>
+      <p>{{ beer.description }}</p>
+      <button ion-button clear item-right (click)="showInfo(beer)">View</button>
+      <button ion-button clear item-right (click)="removeBeer(beer.$key)">Delete</button>
+    </ion-item>
   </ion-list>
 </div>
 
 </ion-content>
 
-
-
-
-<!--<ion-list>-->
-  <!--<ion-item *ngFor="let beer of userBeers | async">-->
-    <!--<h2 text-center>{{ beer.name }}</h2>-->
-    <!--<img src="{{ beer.logo }}" alt="Beer Label">-->
-    <!--<p>{{ beer.description }}</p>-->
-
-  <!--</ion-item>-->
-<!--</ion-list>-->
-
-<!--<img src="{{base64Image}}" alt="Profile Image">-->

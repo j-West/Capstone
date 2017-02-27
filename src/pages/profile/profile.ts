@@ -6,6 +6,7 @@ import { AuthService } from '../../providers/auth-service';
 import {LoginPage} from "../login/login";
 import { App } from 'ionic-angular';
 import { Camera, Device } from 'ionic-native';
+import {UserModalPage} from "../user-modal/user-modal";
 // import {CountSignature} from "rxjs/operator/count";
 
 declare var window: any;
@@ -51,6 +52,16 @@ export class ProfilePage {
         beerDesc: beer.description
       });
     modal.present();
+  }
+
+  showUserBeer(user: any) {
+    let userModal = this.modalCtrl
+      .create(UserModalPage, {
+        userNickname : user.nickname,
+        userPhoto : user.photoURL,
+        userUid : user.$key
+      });
+    userModal.present();
   }
 
 
@@ -108,7 +119,7 @@ export class ProfilePage {
   }
 
   uploadToFirebase(_imageBlob) {
-    var fileName = this._auth.authState.uid;
+    var fileName = this._auth.authState.uid  + new Date().getTime() + '.jpg';
 
     return new Promise((resolve, reject) => {
       var fileRef = this.firebaseApp.storage().ref('images/' + fileName);
@@ -134,8 +145,10 @@ export class ProfilePage {
         photoURL: _uploadSnapshot.downloadURL
 
       })
+
+      // this.userFbRef.set({ photoURL : _uploadSnapshot.downloadURL })
       // we will save meta data of image in database
-      var dataToSave = { 'URL': _uploadSnapshot.downloadURL };
+      var dataToSave = { 'PhotoURL': _uploadSnapshot.downloadURL };
 
       this.firebaseRef.update(this._auth.authState.uid, dataToSave).then((_response: any) => {
         resolve(_response);
@@ -161,24 +174,24 @@ export class ProfilePage {
       targetHeight: 640,
       correctOrientation: true
     }).then((_imagePath) => {
-      alert('test got image path ' + _imagePath);
+      // alert('test got image path ' + _imagePath);
       this.takenImg = _imagePath;
       // convert picture to blob
       return this.makeFileIntoBlob(_imagePath);
     }).then((_imageBlob) => {
-      alert('got image blob ' + _imageBlob);
+      // alert('got image blob ' + _imageBlob);
 
       // upload the blob
       return this.uploadToFirebase(_imageBlob);
     }).then((_uploadSnapshot: any) => {
-      alert('file uploaded successfully  ' + _uploadSnapshot.downloadURL);
+      // alert('file uploaded successfully  ' + _uploadSnapshot.downloadURL);
 
       // store reference to storage in database
       return this.saveToDatabaseAssetList(_uploadSnapshot);
 
     }).then((_uploadSnapshot: any) => {
       console.log(this.currentUser);
-      alert('file saved to asset catalog successfully  ');
+      // alert('file saved to asset catalog successfully  ');
     }, (_error) => {
       alert('myError ' + (_error.message || _error));
     });
