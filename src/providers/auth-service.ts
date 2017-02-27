@@ -23,12 +23,7 @@ export class AuthService {
   getAuthenticated(): boolean {
     return this.authState !== null;
   }
-  signInWithTwitter(): firebase.Promise<FirebaseAuthState> {
-    return this.auth$.login({
-      provider: AuthProviders.Twitter,
-      method: AuthMethods.Popup
-    });
-  }
+
 
   signIn(userInfo: any): firebase.Promise<FirebaseAuthState> {
     return this.auth$.login({ email : userInfo.email, password : userInfo.password },
