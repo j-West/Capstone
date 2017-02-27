@@ -7,7 +7,7 @@
       </button>
     </ion-buttons>
 
-    <ion-title>{{ beer }}</ion-title>
+
 
   </ion-navbar>
 
@@ -30,6 +30,7 @@
     <ion-card-content>
       <p>{{ post.description }}</p>
     </ion-card-content>
+
   </ion-card>
 
   <ion-list>
@@ -41,6 +42,31 @@
       <p>{{comment.comment}}</p>
     </ion-item>
   </ion-list>
+
+  <ion-list>
+
+    <!--<ion-item>-->
+      <!--<ion-input type="text" placeholder="Add comment" [(ngModel)]="comment" ></ion-input>-->
+    <!--</ion-item>-->
+
+    <ion-item>
+      <ion-label stacked>Comment:</ion-label>
+      <ion-textarea [(ngModel)]="comment"></ion-textarea>
+    </ion-item>
+
+    <!--<ion-item>-->
+      <!--<ion-label floating>Description</ion-label>-->
+      <!--<ion-textarea></ion-textarea>-->
+    <!--</ion-item>-->
+
+    <button *ngIf="comment" margin-left ion-button icon-left small (click)="addComment(comment)">
+      <ion-icon name="add-circle"></ion-icon>
+      Add Comment
+    </button>
+
+  </ion-list>
+
+
 
 
 </ion-content>
