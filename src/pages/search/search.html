@@ -7,34 +7,29 @@
 
 <ion-content padding-top>
 
-  <div>
-    <ion-segment [(ngModel)]="searchEither">
-      <ion-segment-button value="beer">
-        Beer
-      </ion-segment-button>
-      <ion-segment-button value="brewery">
-        Brewery
-      </ion-segment-button>
-    </ion-segment>
+  <!--<div>-->
+    <!--<ion-segment [(ngModel)]="searchEither">-->
+      <!--<ion-segment-button value="beer">-->
+        <!--Beer-->
+      <!--</ion-segment-button>-->
+      <!--<ion-segment-button value="brewery">-->
+        <!--Brewery-->
+      <!--</ion-segment-button>-->
+    <!--</ion-segment>-->
 
-  </div>
+  <!--</div>-->
 
-  <div [ngSwitch]="searchEither">
+  <!--<div [ngSwitch]="searchEither">-->
 
-    <ion-list *ngSwitchCase="'beer'">
+
 
         <div *ngIf="beerName">
           <h2 text-center>{{ beerName }}</h2>
           <img [src]="beerLogo" *ngIf="beerLogo !== ''">
           <button margin-top *ngIf="beerName !== 'Beer not found' || ''" ion-button block (click)="saveBeer(beer)">Save Beer!</button>
         </div>
-      </ion-list>
 
-
-    <ion-list *ngSwitchCase="'brewery'">
-
-    </ion-list>
-  </div>
+  <!--</div>-->
 
 
 </ion-content>

@@ -38,11 +38,11 @@ export class SearchPage {
       duration: 5000
     })
     this.loader.present();
-
+    this.getBeer(this.searchInput)
   }
 
   getBeer(beer) {
-    if (this.searchEither === 'beer') {
+    // if (this.searchEither === 'beer') {
       this.beerService.getBeer(beer).subscribe(res => {
         console.log(res);
         if (res.data) {
@@ -56,9 +56,10 @@ export class SearchPage {
           this.beerLogo = ''
         }
       })
-    } else {
-      this.beerService.getBrewery(beer).subscribe(res => {
-        console.log(res);
+    // }
+    // else {
+      // this.beerService.getBrewery(beer).subscribe(res => {
+      //   console.log(res);
         // if (res.data) {
         //   this.loader.dismiss();
         //   this.beerName = res.data[0].nameDisplay;
@@ -69,8 +70,8 @@ export class SearchPage {
         //   this.beerName = 'Beer not found';
         //   this.beerLogo = ''
         // }
-      })
-    }
+      // })
+    // }
   }
 
   saveBeer() {

@@ -172,7 +172,6 @@ export class HomePage {
       })
       this.loader2.present();
 
-
       // convert picture to blob
       return this.makeFileIntoBlob(_imagePath);
     }).then((_imageBlob) => {
