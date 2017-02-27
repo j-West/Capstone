@@ -25,16 +25,11 @@
     </ion-card-content>
 
     <ion-row>
-      <!--<ion-col>-->
-        <!--<button ion-button icon-left clear small (click)="likeFunction(beer)">-->
-          <!--<ion-icon name="thumbs-up"></ion-icon>-->
-          <!--<div>{{ (beer.likes | async)?.length }} Likes</div>-->
-        <!--</button>-->
-      <!--</ion-col>-->
+
       <ion-col>
         <button ion-button icon-left clear small (click)="viewComments(beer)">
           <ion-icon name="text"></ion-icon>
-          <div>{{ (beer.comments)?.length }} Comments</div>
+          <div>{{ (comments | async)?.length }} Comments</div>
         </button>
       </ion-col>
     </ion-row>

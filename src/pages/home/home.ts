@@ -21,8 +21,9 @@ export class HomePage {
   currentUser: any;
   time: string;
   checkinMessage: string;
-  clickedBeer: FirebaseObjectObservable<any>;
+
   loader: any;
+  loader2: any;
 
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private _auth: AuthService, public af: AngularFire, @Inject(FirebaseApp) public firebaseApp: any) {
     this.allBeers = af.database.list('/beers').map(beers => { return beers.reverse() });
@@ -38,6 +39,7 @@ export class HomePage {
     this.loader.present();
 
     }
+
 
   ionViewDidLoad() {
     this.loader.dismiss();
@@ -93,7 +95,7 @@ export class HomePage {
     return new Promise((resolve, reject) => {
 
         let date = new Date();
-        this.time = date.toString();
+        this.time = date.toDateString();
         // we will save meta data of image in database
         var dataToSave = {
           'URL': _uploadSnapshot.downloadURL,
@@ -162,25 +164,34 @@ export class HomePage {
       correctOrientation: true,
       saveToPhotoAlbum: true
     }).then((_imagePath) => {
-      alert('test got image path ' + _imagePath);
+      // alert('test got image path ' + _imagePath);
+
+      this.loader2 = this.loadingCtrl.create({
+        content: 'Please Wait...',
+        duration: 10000
+      })
+      this.loader2.present();
+
 
       // convert picture to blob
       return this.makeFileIntoBlob(_imagePath);
     }).then((_imageBlob) => {
-      alert('got image blob ' + _imageBlob);
+      // alert('got image blob ' + _imageBlob);
 
       // upload the blob
       return this.uploadToFirebase(_imageBlob);
     }).then((_uploadSnapshot: any) => {
-      alert('file uploaded successfully  ' + _uploadSnapshot.downloadURL);
+      // alert('file uploaded successfully  ' + _uploadSnapshot.downloadURL);
 
       // store reference to storage in database
       return this.saveToDatabaseAssetList(_uploadSnapshot);
 
     }).then((_uploadSnapshot: any) => {
+      this.loader2.dismiss();
 
-      alert('file saved to asset catalog successfully  ');
-    }, (_error) => {
+      // alert('file saved to asset catalog successfully  ');
+    }
+      , (_error) => {
       alert('myError ' + (_error.message || _error));
     });
   }
