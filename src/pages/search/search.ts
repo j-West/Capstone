@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {NavController, NavParams, ToastController, LoadingController} from 'ionic-angular';
 import { BeerService } from '../../providers/beer-service';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseApp } from 'angularfire2';
 import { AuthService } from '../../providers/auth-service';
 
 
@@ -21,16 +21,18 @@ export class SearchPage {
   currentBeer: any;
   time: string;
   loader: any;
+  defaultBeer: string;
+  searchEither: string
 
-  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, private toastCtrl: ToastController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, @Inject(FirebaseApp) firebaseApp: any, private toastCtrl: ToastController, public navParams: NavParams, private _auth: AuthService, public af: AngularFire, private beerService: BeerService) {
     this.userBeers = af.database.list(`/users/${_auth.authState.uid}/beers`);
     this.allBeer = af.database.list('/beers');
     this.searchInput = '';
-
+    this.searchEither = 'beer';
+    this.defaultBeer = firebaseApp.storage().ref().child('images/login-background.png');
   }
 
   onSearch() {
-    this.getBeer(this.searchInput);
     this.loader = this.loadingCtrl.create({
       content: 'Please Wait...',
       duration: 5000
@@ -40,19 +42,35 @@ export class SearchPage {
   }
 
   getBeer(beer) {
-    this.beerService.getBeer(beer).subscribe(res => {
-      console.log(res);
-      if(res.data) {
-        this.loader.dismiss();
-        this.beerName = res.data[0].nameDisplay;
-        this.beerLogo = res.data[0].labels.large;
-        this.currentBeer = res.data;
-      } else {
-        this.loader.dismiss();
-        this.beerName = 'Try Again';
-        this.beerLogo = '../../assets/images/notFound.jpg'
-      }
-    })
+    if (this.searchEither === 'beer') {
+      this.beerService.getBeer(beer).subscribe(res => {
+        console.log(res);
+        if (res.data) {
+          this.loader.dismiss();
+          this.beerName = res.data[0].nameDisplay;
+          this.beerLogo = res.data[0].labels.large;
+          this.currentBeer = res.data;
+        } else {
+          this.loader.dismiss();
+          this.beerName = 'Beer not found';
+          this.beerLogo = ''
+        }
+      })
+    } else {
+      this.beerService.getBrewery(beer).subscribe(res => {
+        console.log(res);
+        // if (res.data) {
+        //   this.loader.dismiss();
+        //   this.beerName = res.data[0].nameDisplay;
+        //   this.beerLogo = res.data[0].labels.large;
+        //   this.currentBeer = res.data;
+        // } else {
+        //   this.loader.dismiss();
+        //   this.beerName = 'Beer not found';
+        //   this.beerLogo = ''
+        // }
+      })
+    }
   }
 
   saveBeer() {

@@ -2,14 +2,39 @@
   <ion-toolbar color="primary">
     <ion-searchbar [(ngModel)]="searchInput" (search)="onSearch(searchInput)" placeholder="Search"></ion-searchbar>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content padding-top>
 
-  <div *ngIf="beerName">
-    <h2 text-center>{{ beerName }}</h2>
-    <img [src]="beerLogo" alt="beer">
-    <button *ngIf="beerName !== 'Try Again' || ''" ion-button block (click)="saveBeer(beer)">Save Beer!</button>
+  <div>
+    <ion-segment [(ngModel)]="searchEither">
+      <ion-segment-button value="beer">
+        Beer
+      </ion-segment-button>
+      <ion-segment-button value="brewery">
+        Brewery
+      </ion-segment-button>
+    </ion-segment>
+
   </div>
+
+  <div [ngSwitch]="searchEither">
+
+    <ion-list *ngSwitchCase="'beer'">
+
+        <div *ngIf="beerName">
+          <h2 text-center>{{ beerName }}</h2>
+          <img [src]="beerLogo" *ngIf="beerLogo !== ''">
+          <button margin-top *ngIf="beerName !== 'Beer not found' || ''" ion-button block (click)="saveBeer(beer)">Save Beer!</button>
+        </div>
+      </ion-list>
+
+
+    <ion-list *ngSwitchCase="'brewery'">
+
+    </ion-list>
+  </div>
+
 
 </ion-content>
