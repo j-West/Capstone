@@ -50,10 +50,6 @@ export class LoginPage {
     this.navCtrl.setRoot(TabsPage);
   }
 
-  signInWithTwitter(): void {
-    this._auth.signInWithTwitter()
-      .then(() => this.onSignInSuccess());
-  }
 
   signIn(): void {
     this._auth.signIn(this.userInfo.value)
@@ -67,7 +63,8 @@ export class LoginPage {
       .then((data) => {
         this.currentUser = this.af.database.object(`/users/${data.uid}`);
         this.currentUser.set({
-          nickname: this.userInfo.value.nickname
+          nickname : this.userInfo.value.nickname,
+          photoURL : this.defaultProfileImg
         });
         this.onSignInSuccess()
       })
