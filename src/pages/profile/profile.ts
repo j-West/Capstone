@@ -20,6 +20,7 @@ export class ProfilePage {
   userBeers: FirebaseListObservable<any>;
   firebaseRef: FirebaseListObservable<any>;
   userFbRef: FirebaseObjectObservable<any>;
+  userRef : FirebaseListObservable<any>;
   profileImgRef: any;
   currentUser: any;
   view: string;
@@ -139,6 +140,7 @@ export class ProfilePage {
 
   saveToDatabaseAssetList(_uploadSnapshot) {
     return new Promise((resolve, reject) => {
+      // this.profileImgRef = _uploadSnapshot.downloadURL;
 
       this._auth.authState.auth.updateProfile({
         displayName: this._auth.authState.auth.displayName,

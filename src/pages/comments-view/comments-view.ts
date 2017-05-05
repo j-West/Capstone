@@ -25,7 +25,11 @@ export class CommentsViewPage {
     this.currentUser = this._auth.authState.auth;
     this.post = navParams.get('beer');
     this.comments = af.database.list(`beers/${this.post.$key}/comments`)
+
+
+
   }
+
 
   dismiss() {
     this.viewCtrl.dismiss();
