@@ -20,27 +20,35 @@ I enjoy trying new beer whenever I can, but remembering which beer I have tried 
 #### Login/Register View
 ![Angular 2 & Typescript](img/login.png)
 
+---
 #### Home View
 ![Angular 2 & Typescript](img/home.png)
 
+---
 #### Post Comment View
 ![Angular 2 & Typescript](img/viewPost.png)
 
+---
 #### Search View
 ![Angular 2 & Typescript](img/search.png)
 
+---
 #### Profile View
 ![Angular 2 & Typescript](img/viewProfile.png)
 
+---
 #### View Beer
 ![Angular 2 & Typescript](img/viewBeer.png)
 
+---
 #### See Other Users
 ![Angular 2 & Typescript](img/otherUsers.png)
 
+---
 #### View Beer other Users have tried 
 ![Angular 2 & Typescript](img/otherUserBeer.png)
 
+---
 #### Save Beer From Other Users
 ![Angular 2 & Typescript](img/saveFromOtherUser.png)
 
